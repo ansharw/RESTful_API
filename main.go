@@ -4,7 +4,7 @@ import (
 	"belajar-rest-api/database"
 	"belajar-rest-api/exception"
 	"belajar-rest-api/handler"
-	// "belajar-rest-api/middleware"
+	"belajar-rest-api/middleware"
 	"belajar-rest-api/repository"
 	"belajar-rest-api/service"
 
@@ -19,15 +19,21 @@ func main() {
 	categoryService := service.NewCategoryService(db, categoryRepository, validator)
 	categoryHandler := handler.NewCategoryHandler(categoryService)
 
+	productRepository := repository.NewProductRepository()
+	productService := service.NewProductService(db, productRepository, validator)
+	productHandler := handler.NewProductHandler(productService)
+
 	echo := echo.New()
 	api := echo.Group("/api")
-	// echo.Use(exception.PanicMiddleWare, middleware.AuthMiddleware)
-	echo.Use(exception.PanicMiddleWare)
+	echo.Use(exception.PanicMiddleWare, middleware.AuthMiddleware)
+	// echo.Use(exception.PanicMiddleWare)
 	api.GET("/categories", categoryHandler.FindAll)
 	api.POST("/categories", categoryHandler.Create)
 	api.PUT("/categories", categoryHandler.Update)
 	api.DELETE("/categories", categoryHandler.Delete)
 	api.GET("/categories/:id", categoryHandler.FindById)
+
+	api.GET("/categories/:id/products", productHandler.FindProductByCategoryId)
 
 	echo.Logger.Fatal(echo.Start(":3000"))
 }

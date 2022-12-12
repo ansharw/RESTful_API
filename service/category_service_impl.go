@@ -99,3 +99,4 @@ func (service *categoryService) FindById(ctx context.Context, id int) response.R
 
 	return category.ToResponseCategory()
 }
+

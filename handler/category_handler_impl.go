@@ -57,7 +57,7 @@ func (handler *categoryHandler) Update(c echo.Context) error {
 
 	handler.categoryService.Update(c.Request().Context(), *requestCategory)
 
-	return c.JSON(http.StatusOK, api.ApiResponse{		
+	return c.JSON(http.StatusOK, api.ApiResponse{
 		Code:   200,
 		Status: "OK",
 		Data:   requestCategory,
@@ -87,6 +87,6 @@ func (handler *categoryHandler) FindById(c echo.Context) error {
 	return c.JSON(http.StatusOK, api.ApiResponse{
 		Code:   200,
 		Status: "OK",
-		Data: responseCategory,
+		Data:   responseCategory,
 	})
 }
