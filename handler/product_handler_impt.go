@@ -96,3 +96,47 @@ func (handler *productHandler) FindProductByCategoryId(c echo.Context) error {
 		Data:   responseProducts,
 	})
 }
+
+func (handler *productHandler) CreateProductByCategoryId(c echo.Context) error {
+	idString := c.Param("category_id")
+	id, err := strconv.Atoi(idString)
+	helper.PanicIfError(err)
+
+	requestProduct := new(request.RequestCreateProduct)
+	c.Bind(requestProduct)
+
+	responseProduct := handler.productService.CreateProductByCategoryId(c.Request().Context(), *requestProduct, id)
+
+	return c.JSON(http.StatusOK, api.ApiResponse{
+		Code:   200,
+		Status: "OK",
+		Data:   responseProduct,
+	})
+}
+
+func (handler *productHandler) UpdateProductByCategoryId(c echo.Context) error {
+	requestProduct := new(request.RequestUpdateProduct)
+	err := c.Bind(requestProduct)
+	helper.PanicIfError(err)
+
+	handler.productService.UpdateProductByCategoryId(c.Request().Context(), *requestProduct)
+
+	return c.JSON(http.StatusOK, api.ApiResponse{
+		Code:   200,
+		Status: "OK",
+		Data:   requestProduct,
+	})
+}
+
+func (handler *productHandler) DeleteProductByCategoryId(c echo.Context) error {
+	requestProduct := new(request.RequestDeleteProduct)
+	err := c.Bind(requestProduct)
+	helper.PanicIfError(err)
+
+	handler.productService.DeleteProductByCategoryId(c.Request().Context(), *requestProduct)
+
+	return c.JSON(http.StatusOK, api.ApiResponse{
+		Code:   200,
+		Status: "OK",
+	})
+}

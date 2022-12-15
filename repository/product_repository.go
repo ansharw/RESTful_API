@@ -13,5 +13,9 @@ type ProductRepository interface {
 	Delete(ctx context.Context, tx *sql.Tx, product domain.Product)
 
 	FindById(ctx context.Context, tx *sql.Tx, id int) domain.Product
+
 	FindProductByCategoryId(ctx context.Context, tx *sql.Tx, id int) []domain.Product
+	CreateProductByCategoryId(ctx context.Context, tx *sql.Tx, product domain.Product, id int) domain.Product
+	UpdateProductByCategoryId(ctx context.Context, tx *sql.Tx, product domain.Product)
+	DeleteProductByCategoryId(ctx context.Context, tx *sql.Tx, product domain.Product)
 }

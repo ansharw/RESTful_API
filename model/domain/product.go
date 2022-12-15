@@ -10,13 +10,18 @@ type Product struct {
 
 func (p *Product) ToResponseProduct() response.ResponseProduct {
 	return response.ResponseProduct{
-		Id:   p.id,
-		Name: p.name,
+		Id:         p.id,
+		Name:       p.name,
+		CategoryId: p.categoryId,
 	}
 }
 
 func (p *Product) SetId(id *int) {
 	p.id = *id
+}
+
+func (p *Product) SetCategoryId(categoryId *int) {
+	p.categoryId = *categoryId
 }
 
 func (p *Product) SetName(name *string) {

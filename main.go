@@ -34,6 +34,11 @@ func main() {
 	api.GET("/categories/:id", categoryHandler.FindById)
 
 	api.GET("/categories/:id/products", productHandler.FindProductByCategoryId)
+	api.GET("/products", productHandler.FindAll)
+	api.POST("/products", productHandler.Create)
+	api.PUT("/products", productHandler.UpdateProductByCategoryId)
+	api.DELETE("/products", productHandler.DeleteProductByCategoryId)
+	api.GET("/products/:id", productHandler.FindById)
 
 	echo.Logger.Fatal(echo.Start(":3000"))
 }

@@ -9,5 +9,9 @@ type ProductHandler interface {
 	Delete(c echo.Context) error
 
 	FindById(c echo.Context) error
+
 	FindProductByCategoryId(c echo.Context) error
+	CreateProductByCategoryId(c echo.Context) error
+	UpdateProductByCategoryId(c echo.Context) error
+	DeleteProductByCategoryId(c echo.Context) error
 }

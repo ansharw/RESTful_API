@@ -268,7 +268,7 @@
                                         },
                                         "data": {
                                             "type": "array",
-                                            "items":{
+                                            "items": {
                                                 "properties": {
                                                     "id": {
                                                         "type": "number"
@@ -285,95 +285,19 @@
                         }
                     }
                 }
-            },
-            "post":{
+            }
+        },
+        "/products": {
+            "get": {
                 "security": [
                     {
                         "Auth": []
                     }
                 ],
-                "description": "Post product by category id",
-                "parameters": [
-                    {
-                        "required": true,
-                        "name": "categoryId",
-                        "in": "path",
-                        "description": "category id"
-                    }
-                ],
-                "requestBody":{
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties":{
-                                    "name":{
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200" :{
-                        "description": "success get all products by category id",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "code": {
-                                            "type": "number"
-                                        },
-                                        "status": {
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id":{
-                                                    "type": "number"
-                                                },
-                                                "name":{
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put":{
-                "security": [
-                    {
-                        "Auth": []
-                    }
-                ],
-                "description": "Put product by category id",
-                "parameters": [
-                    {
-                        "required": true,
-                        "name": "categoryId",
-                        "in": "path",
-                        "description": "category id"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CategoryResponse"
-                            }
-                        }
-                    }
-                },
+                "description": "Get all product",
                 "responses": {
                     "200": {
-                        "description": "Success update product by category id",
+                        "description": "success get all products",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -386,7 +310,20 @@
                                             "type": "string"
                                         },
                                         "data": {
-                                            "$ref": "#/components/schemas/CategoryResponse"
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "number"
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -394,24 +331,136 @@
                         }
                     }
                 }
-
             },
-            "delete":{
+            "post": {
+                "security": [
+                    {
+                        "Auth": []
+                    }
+                ],
+                "description": "Post product",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "category_id":{
+                                        "type": "number"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success get all products",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "category_id": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Auth": []
+                    }
+                ],
+                "description": "Put product",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "number"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "category_id":{
+                                        "type": "number"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success update product",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "category_id": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
                 "security": [
                     {
                         "Auth": []
                     }
                 ],
                 "description": "Delete product",
-                "parameters": [
-                    {
-                        "required": true,
-                        "name": "categoryId",
-                        "in": "path",
-                        "description": "category id"
-                    }
-                ],
-                "requestBody":{
+                "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
@@ -427,7 +476,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Success dekete product",
+                        "description": "Success delete product",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -444,7 +493,59 @@
                             }
                         }
                     }
-                } 
+                }
+            }
+        },
+        "/products/{productId}": {
+            "get": {
+                "security": [
+                    {
+                        "Auth": []
+                    }
+                ],
+                "description": "Get product by id",
+                "parameters": [
+                    {
+                        "required": true,
+                        "name": "productId",
+                        "in": "path",
+                        "description": "product id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success get productby id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                }, 
+                                                "category_id":{
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

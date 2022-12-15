@@ -51,6 +51,7 @@ func (service *productService) Create(ctx context.Context, request request.Reque
 
 	product := domain.Product{}
 	product.SetName(&request.Name)
+	product.SetCategoryId(&request.CategoryId)
 	product = service.productRepository.Create(ctx, tx, product)
 
 	return product.ToResponseProduct()
@@ -89,6 +90,7 @@ func (service *productService) Delete(ctx context.Context, request request.Reque
 	service.productRepository.Delete(ctx, tx, product)
 }
 
+
 func (service *productService) FindById(ctx context.Context, id int) response.ResponseProduct {
 	tx, err := service.db.BeginTx(ctx, nil)
 	helper.PanicIfError(err)
@@ -113,4 +115,56 @@ func (service *productService) FindProductByCategoryId(ctx context.Context, id i
 	}
 
 	return responseProducts
+}
+
+func (service *productService) CreateProductByCategoryId(ctx context.Context, request request.RequestCreateProduct, id int) response.ResponseProduct {
+	err := service.validate.Struct(request)
+	if err != nil {
+		panic(err)
+	}
+
+	tx, err := service.db.BeginTx(ctx, nil)
+	helper.PanicIfError(err)
+
+	defer helper.CommitOrRollback(tx)
+
+	product := domain.Product{}
+	product.SetName(&request.Name)
+	product.SetCategoryId(&request.CategoryId)
+	product = service.productRepository.CreateProductByCategoryId(ctx, tx, product, id)
+
+	return product.ToResponseProduct()
+}
+
+func (service *productService) UpdateProductByCategoryId(ctx context.Context, request request.RequestUpdateProduct) {
+	err := service.validate.Struct(request)
+	if err != nil {
+		panic(err)
+	}
+
+	tx, err := service.db.BeginTx(ctx, nil)
+	helper.PanicIfError(err)
+
+	defer helper.CommitOrRollback(tx)
+
+	product := service.productRepository.FindById(ctx, tx, request.Id)
+	product.SetName(&request.Name)
+
+	service.productRepository.Update(ctx, tx, product)
+}
+
+func (service *productService) DeleteProductByCategoryId(ctx context.Context, request request.RequestDeleteProduct) {
+	err := service.validate.Struct(request)
+	if err != nil {
+		panic(err)
+	}
+
+	tx, err := service.db.BeginTx(ctx, nil)
+	helper.PanicIfError(err)
+
+	defer helper.CommitOrRollback(tx)
+
+	product := service.productRepository.FindById(ctx, tx, request.Id)
+
+	service.productRepository.Delete(ctx, tx, product)
 }

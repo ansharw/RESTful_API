@@ -13,5 +13,9 @@ type ProductService interface {
 	Delete(ctx context.Context, request request.RequestDeleteProduct)
 
 	FindById(ctx context.Context, id int) response.ResponseProduct
+
 	FindProductByCategoryId(ctx context.Context, id int) []response.ResponseProduct
+	CreateProductByCategoryId(ctx context.Context, request request.RequestCreateProduct, id int) response.ResponseProduct
+	UpdateProductByCategoryId(ctx context.Context, request request.RequestUpdateProduct)
+	DeleteProductByCategoryId(ctx context.Context, request request.RequestDeleteProduct)
 }
