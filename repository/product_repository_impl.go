@@ -17,7 +17,7 @@ func NewProductRepository() *productRepository {
 // "/categories"
 
 func (repo *productRepository) FindAll(ctx context.Context, tx *sql.Tx) []domain.Product {
-	query := "select id, name from product"
+	query := "select id, name, category_id from product"
 	rows, err := tx.QueryContext(ctx, query)
 
 	if err != nil {
@@ -27,7 +27,7 @@ func (repo *productRepository) FindAll(ctx context.Context, tx *sql.Tx) []domain
 	var products []domain.Product
 	for rows.Next() {
 		var product domain.Product
-		rows.Scan(product.GetId(), product.GetName())
+		rows.Scan(product.GetId(), product.GetName(), product.GetCategryId())
 		products = append(products, product)
 	}
 	return products
