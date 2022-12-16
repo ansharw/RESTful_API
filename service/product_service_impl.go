@@ -28,14 +28,14 @@ func (service *productService) FindAll(ctx context.Context) []response.ResponseP
 	helper.PanicIfError(err)
 	defer helper.CommitOrRollback(tx)
 
-	categories := service.productRepository.FindAll(ctx, tx)
+	products := service.productRepository.FindAll(ctx, tx)
 
-	responseCategories := []response.ResponseProduct{}
-	for _, v := range categories {
-		responseCategories = append(responseCategories, v.ToResponseProduct())
+	responseProducts := []response.ResponseProduct{}
+	for _, v := range products {
+		responseProducts = append(responseProducts, v.ToResponseProduct())
 	}
 
-	return responseCategories
+	return responseProducts
 }
 
 func (service *productService) Create(ctx context.Context, request request.RequestCreateProduct) response.ResponseProduct {
