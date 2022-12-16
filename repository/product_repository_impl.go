@@ -81,7 +81,7 @@ func (repo *productRepository) FindById(ctx context.Context, tx *sql.Tx, id int)
 }
 
 func (repo *productRepository) FindProductByCategoryId(ctx context.Context, tx *sql.Tx, id int) []domain.Product {
-	query := "SELECT id, name FROM product WHERE category_id = ?"
+	query := "SELECT id, name, category_id FROM product WHERE category_id = ?"
 	rows, err := tx.QueryContext(ctx, query, id)
 
 	if err != nil {
@@ -91,7 +91,7 @@ func (repo *productRepository) FindProductByCategoryId(ctx context.Context, tx *
 	var products []domain.Product
 	for rows.Next() {
 		var product domain.Product
-		rows.Scan(product.GetId(), product.GetName())
+		rows.Scan(product.GetId(), product.GetName(), product.GetCategryId())
 		products = append(products, product)
 	}
 
