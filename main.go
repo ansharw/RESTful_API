@@ -40,5 +40,5 @@ func main() {
 	api.DELETE("/products", productHandler.DeleteProductByCategoryId)
 	api.GET("/products/:id", productHandler.FindById)
 
-	echo.Logger.Fatal(echo.Start(":3000"))
+	echo.Logger.Fatal(echo.Start(":8080"))
 }
